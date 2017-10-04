@@ -27,6 +27,12 @@ target_include_directories(${PROJECT_NAME} INTERFACE
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/api>
   $<INSTALL_INTERFACE:include>
 )
+
+if(APPLE)
+    target_compile_definitions(${PROJECT_NAME} INTERFACE "GL_GLEXT_PROTOTYPES")
+    target_link_libraries(${PROJECT_NAME} INTERFACE "-framework OpenGL")
+endif()
+
 install(TARGETS ${PROJECT_NAME} EXPORT ${EXPORT_NAME})
 install(EXPORT ${EXPORT_NAME} DESTINATION "lib/cmake/${PROJECT_NAME}")
 install(DIRECTORY api/ DESTINATION include)
